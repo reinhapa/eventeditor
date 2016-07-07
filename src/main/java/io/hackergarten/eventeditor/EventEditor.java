@@ -24,6 +24,7 @@ public class EventEditor extends Application {
     Parent root = loader.load();
     EventEditorController controller = loader.getController();
 
+    controller.setMainApp(this);
     Scene scene = new Scene(root);
     scene.getStylesheets().add(adminClass.getResource("EventEditor.css").toExternalForm());
     stage.setScene(scene);
