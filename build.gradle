@@ -1,0 +1,104 @@
+import java.text.SimpleDateFormat
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+        classpath 'net.nemerosa:versioning:1.7.1'
+    }
+}
+
+configurations {
+    asciidoclet
+}
+
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'signing'
+apply plugin: 'org.asciidoctor.convert'
+apply plugin: 'net.nemerosa.versioning'
+
+group = 'net.reini'
+version = '1.0-SNAPSHOT'
+
+description = "JavaFX Editor for the hackergarten event.json file"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+Date buildTimeAndDate = new Date()
+ext {
+    buildDate = new SimpleDateFormat('yyyy-MM-dd').format(buildTimeAndDate)
+    buildTime = new SimpleDateFormat('HH:mm:ss.SSSZ').format(buildTimeAndDate)
+}
+
+dependencies {
+    runtime group: 'org.glassfish.jersey.core', name: 'jersey-client', version:'2.16'
+    runtime group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version:'2.16'
+    runtime group: 'org.controlsfx', name: 'controlsfx', version:'8.40.9'
+    testCompile group: 'junit', name: 'junit', version:'4.12'
+}
+
+task sourcesJar(type: Jar) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+signing {
+    required { project.hasProperty('signing.password') && !project.version.contains('-SNAPSHOT') }
+    sign configurations.archives
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'JavaFX editor for hackergarten events',
+                   'Implementation-Version': version,
+                   'Created-By': "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})".toString(),
+                   'Build-Date': buildDate,
+                   'Build-Time': buildTime,
+                   'Build-Revision': versioning.info.commit,
+                   'Specification-Title': project.name,
+                   'Specification-Version': project.version,
+                   'Specification-Vendor': 'reini.net'
+        metaInf {
+            from file('.')
+            include 'LICENSE'
+        }
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+check.dependsOn jacocoTestReport
+
+javadoc {
+    options.docletpath = configurations.asciidoclet.files.asType(List)
+    options.doclet = 'org.asciidoctor.Asciidoclet'
+    options.addStringOption "-base-dir", "${projectDir}"
+    options.addStringOption "-attribute",
+            "name=${project.name}," +
+            "version=${project.version}," +
+            "title-link=http://github.com/reinhapa/[${project.name} ${project.version}]"
+}
