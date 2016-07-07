@@ -3,8 +3,6 @@ package io.hackergarten.eventeditor;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.ws.rs.client.Client;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,8 +15,6 @@ import javafx.stage.Stage;
  * @author Patrick Reinhart
  */
 public class EventEditor extends Application {
-  private Client client;
-
   @Override
   public void start(Stage stage) throws Exception {
     Class<? extends EventEditor> adminClass = getClass();
@@ -36,9 +32,6 @@ public class EventEditor extends Application {
 
   @Override
   public void stop() throws Exception {
-    if (client != null) {
-      client.close();
-    }
   }
 
   /**
