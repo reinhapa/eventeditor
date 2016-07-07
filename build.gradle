@@ -24,7 +24,7 @@ apply plugin: 'net.nemerosa.versioning'
 group = 'net.reini'
 version = '1.0-SNAPSHOT'
 
-description = "JavaFX Editor for the hackergarten event.json file"
+description = "JavaFX editor for Hackergarten events event.json file"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
