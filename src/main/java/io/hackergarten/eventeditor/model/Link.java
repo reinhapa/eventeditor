@@ -2,22 +2,41 @@ package io.hackergarten.eventeditor.model;
 
 import java.net.URL;
 
-public class Link {
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
-  private String title;
-  private URL url;
-  
- 
-  public String getTitle() {
+public class Link {
+  private final StringProperty title;
+  private final ObjectProperty<URL> url;
+
+  public Link() {
+    title = new SimpleStringProperty();
+    url = new SimpleObjectProperty<>();
+  }
+
+  public StringProperty titleProperty() {
     return title;
   }
-  public void setTitle(String title) {
-    this.title = title;
+
+  public String getTitle() {
+    return title.get();
   }
-  public URL getUrl() {
+
+  public void setTitle(String title) {
+    this.title.set(title);
+  }
+
+  public ObjectProperty<URL> urlProperty() {
     return url;
   }
+
+  public URL getUrl() {
+    return url.get();
+  }
+
   public void setUrl(URL url) {
-    this.url = url;
+    this.url.set(url);
   }
 }
