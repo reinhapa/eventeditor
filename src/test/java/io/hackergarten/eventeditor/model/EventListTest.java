@@ -1,8 +1,13 @@
 package io.hackergarten.eventeditor.model;
 
-import static org.junit.Assert.*;
+import static java.nio.file.Files.exists;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +20,17 @@ public class EventListTest {
     eventList = new EventList();
   }
 
+
   @Test
   public void testLoadPath() throws Exception {
+    Path eventFile = Paths.get(System.getProperty("user.home")).resolve("git/hackergarten.github.io/events.json");
+    if (exists(eventFile)) {
+      eventList.load(eventFile);
+    }
+  }
+
+  @Test
+  public void testLoadInputStream() throws Exception {
     try (InputStream in = getClass().getResourceAsStream("events.json")) {
       eventList.load(in);
       assertEquals(2, eventList.size());

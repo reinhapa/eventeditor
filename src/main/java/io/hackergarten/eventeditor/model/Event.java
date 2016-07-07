@@ -11,8 +11,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Event {
-  private final StringProperty location;
   private final StringProperty title;
+  private final StringProperty location;
+  private final StringProperty details;
   private final ObjectProperty<Date> date;
   private final ObservableList<Link> achievements;
   private final ObservableList<Link> links;
@@ -20,6 +21,7 @@ public class Event {
   public Event() {
     location = new SimpleStringProperty();
     title = new SimpleStringProperty();
+    details = new SimpleStringProperty();
     date = new SimpleObjectProperty<>();
     achievements = FXCollections.observableArrayList();
     links = FXCollections.observableArrayList();
@@ -47,6 +49,18 @@ public class Event {
 
   public void setTitle(String title) {
     this.title.set(title);
+  }
+
+  public StringProperty detailsProperty() {
+    return details;
+  }
+
+  public String getDetails() {
+    return details.get();
+  }
+
+  public void setDetails(String details) {
+    this.details.set(details);
   }
 
   public ObjectProperty<Date> dateProperty() {
