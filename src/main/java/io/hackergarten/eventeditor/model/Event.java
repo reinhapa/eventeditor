@@ -1,30 +1,36 @@
 package io.hackergarten.eventeditor.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Event {
+/**
+ * Specifies all properties for a single event.
+ */
+public final class Event {
   private final StringProperty title;
+  private final StringProperty venue;
   private final StringProperty location;
   private final StringProperty details;
-  private final ObjectProperty<Date> date;
-  private final ObservableList<Link> achievements;
-  private final ObservableList<Link> links;
+  private final ObjectProperty<LocalDate> date;
+  private final ObjectProperty<ObservableList<Link>> achievements;
+  private final ObjectProperty<ObservableList<Link>> links;
 
   public Event() {
     location = new SimpleStringProperty();
     title = new SimpleStringProperty();
+    venue = new SimpleStringProperty();
     details = new SimpleStringProperty();
     date = new SimpleObjectProperty<>();
-    achievements = FXCollections.observableArrayList();
-    links = FXCollections.observableArrayList();
+    achievements = new SimpleObjectProperty<>();
+    links = new SimpleObjectProperty<>();
   }
 
   public StringProperty locationProperty() {
@@ -51,6 +57,18 @@ public class Event {
     this.title.set(title);
   }
 
+  public StringProperty venueProperty() {
+    return venue;
+  }
+
+  public String getVenue() {
+    return venue.get();
+  }
+
+  public void setVenue(String venue) {
+    this.venue.set(venue);
+  }
+
   public StringProperty detailsProperty() {
     return details;
   }
@@ -63,39 +81,39 @@ public class Event {
     this.details.set(details);
   }
 
-  public ObjectProperty<Date> dateProperty() {
+  public ObjectProperty<LocalDate> dateProperty() {
     return date;
   }
 
-  public Date getDate() {
+  public LocalDate getDate() {
     return date.get();
   }
 
-  public void setDate(Date date) {
+  public void setDate(LocalDate date) {
     this.date.set(date);
   }
 
-  public ObservableList<Link> achievementsProperty() {
+  public Property<ObservableList<Link>> achievementsProperty() {
     return achievements;
   }
 
   public List<Link> getAchievements() {
-    return achievements;
+    return achievements.get();
   }
 
   public void setAchievements(List<Link> achievements) {
-    this.achievements.setAll(achievements);
+    this.achievements.set(FXCollections.observableArrayList(achievements));
   }
 
-  public ObservableList<Link> linksProperty() {
+  public Property<ObservableList<Link>> linksProperty() {
     return links;
   }
 
   public List<Link> getLinks() {
-    return links;
+    return links.get();
   }
 
   public void setLinks(List<Link> links) {
-    this.links.setAll(links);
+    this.links.set(FXCollections.observableArrayList(links));
   }
 }

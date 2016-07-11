@@ -1,32 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-
-<BorderPane xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.hackergarten.eventeditor.EventEditorController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.hackergarten.eventeditor.EventEditorController">
    <center>
-      <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+      <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="805.0">
          <children>
-            <TableView fx:id="eventTable" layoutY="-4.0" prefHeight="400.0" prefWidth="252.0">
+            <TableView fx:id="eventTable" layoutY="-4.0" prefHeight="400.0" prefWidth="336.0">
               <columns>
-                <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Title" />
-                <TableColumn fx:id="locationColumn" prefWidth="75.0" text="Location" />
-                  <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date" />
+                <TableColumn fx:id="eventTableTitleColumn" prefWidth="75.0" text="Title" />
+                <TableColumn fx:id="eventTableLocationColumn" prefWidth="75.0" text="Location" />
+                  <TableColumn fx:id="eventTableVenueColumn" prefWidth="75.0" text="Venue" />
+                  <TableColumn fx:id="eventTableDateColumn" prefWidth="75.0" text="Date" />
               </columns>
             </TableView>
-            <Label layoutX="262.0" layoutY="14.0" text="Details" />
-            <TableView layoutX="280.0" layoutY="63.0" prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="linksTable" layoutX="344.0" layoutY="247.0" prefHeight="139.0" prefWidth="190.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="linksTableTitleColumn" prefWidth="69.0" text="Title" />
+                <TableColumn fx:id="linksTableUrlColumn" prefWidth="79.0" text="URL" />
               </columns>
+            </TableView>
+            <GridPane layoutX="344.0" layoutY="20.0" prefHeight="174.0" prefWidth="357.0">
+              <columnConstraints>
+                <ColumnConstraints fillWidth="false" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+              </rowConstraints>
+               <children>
+                  <Label text="Title" />
+                  <Label text="Venue" GridPane.rowIndex="1" />
+                  <Label text="Location" GridPane.rowIndex="2" />
+                  <Label text="Date" GridPane.rowIndex="3" />
+                  <Label text="Details" GridPane.rowIndex="4" />
+                  <TextField fx:id="eventTitle" GridPane.columnIndex="1" />
+                  <TextField fx:id="eventVenue" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="eventLocation" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <DatePicker fx:id="eventDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextArea fx:id="eventDetails" prefHeight="107.0" prefWidth="249.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               </children>
+            </GridPane>
+            <TableView fx:id="achievementsTable" layoutX="574.0" layoutY="247.0" prefHeight="139.0" prefWidth="190.0">
+               <columns>
+                  <TableColumn fx:id="achievementsTableTitleColumn" prefWidth="69.0" text="Title" />
+                  <TableColumn fx:id="achievementsTableUrlColumn" prefWidth="79.0" text="URL" />
+               </columns>
             </TableView>
          </children>
       </AnchorPane>
@@ -36,8 +72,8 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem fx:id="openFile" mnemonicParsing="false" text="Open" />
-              <MenuItem fx:id="closeEditor" mnemonicParsing="false" text="Close" />
+               <MenuItem fx:id="openFile" mnemonicParsing="false" text="Open" />
+               <MenuItem fx:id="closeEditor" mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">

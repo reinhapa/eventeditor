@@ -15,9 +15,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import javafx.collections.ModifiableObservableListBase;
 
+/**
+ * Represents a list of all {@link Event} objects.
+ */
 public final class EventList extends ModifiableObservableListBase<Event> {
   private final List<Event> backingList;
 
@@ -38,6 +42,7 @@ public final class EventList extends ModifiableObservableListBase<Event> {
       // advance stream to START_ARRAY first:
       jp.nextToken();
       ObjectMapper mapper = new ObjectMapper();
+      mapper.registerModule(new JavaTimeModule());
       // and then each time, advance to opening START_OBJECT
       while (jp.nextToken() == JsonToken.START_OBJECT) {
         add(mapper.readValue(jp, Event.class));

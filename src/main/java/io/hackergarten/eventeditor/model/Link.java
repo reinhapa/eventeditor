@@ -7,7 +7,10 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Link {
+/**
+ * Specifies a link to further information with an additional URL.
+ */
+public final class Link {
   private final StringProperty title;
   private final ObjectProperty<URL> url;
 
