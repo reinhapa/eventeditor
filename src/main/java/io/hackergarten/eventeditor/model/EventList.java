@@ -21,6 +21,8 @@ import javafx.collections.ModifiableObservableListBase;
 
 /**
  * Represents a list of all {@link Event} objects.
+ * 
+ * @author Patrick Reinhart
  */
 public final class EventList extends ModifiableObservableListBase<Event> {
   private final List<Event> backingList;

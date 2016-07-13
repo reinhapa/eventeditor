@@ -50,6 +50,7 @@ dependencies {
     compile 'org.controlsfx:controlsfx:8.40.9'
 
     testCompile 'junit:junit:4.12'
+    testCompile 'org.jmockit:jmockit:1.23'
 
     asciidoclet 'org.asciidoctor:asciidoclet:1.+'
 }

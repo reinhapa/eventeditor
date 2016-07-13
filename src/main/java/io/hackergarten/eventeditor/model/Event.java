@@ -13,6 +13,8 @@ import javafx.collections.ObservableList;
 
 /**
  * Specifies all properties for a single event.
+ * 
+ * @author Patrick Reinhart
  */
 public final class Event {
   private final StringProperty title;

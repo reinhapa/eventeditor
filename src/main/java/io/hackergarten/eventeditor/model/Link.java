@@ -9,6 +9,8 @@ import javafx.beans.property.StringProperty;
 
 /**
  * Specifies a link to further information with an additional URL.
+ * 
+ * @author Patrick Reinhart
  */
 public final class Link {
   private final StringProperty title;

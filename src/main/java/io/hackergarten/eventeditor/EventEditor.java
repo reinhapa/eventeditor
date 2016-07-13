@@ -23,16 +23,11 @@ public class EventEditor extends Application {
     FXMLLoader loader = new FXMLLoader(url, rb);
     Parent root = loader.load();
     EventEditorController controller = loader.getController();
-
     controller.setMainApp(this);
     Scene scene = new Scene(root);
     scene.getStylesheets().add(adminClass.getResource("EventEditor.css").toExternalForm());
     stage.setScene(scene);
     stage.show();
-  }
-
-  @Override
-  public void stop() throws Exception {
   }
 
   /**
