@@ -2,6 +2,7 @@ package io.hackergarten.eventeditor;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,12 @@ import javafx.stage.Stage;
  * @author Patrick Reinhart
  */
 public class EventEditor extends Application {
+  private final Preferences preferences;
+
+  public EventEditor() {
+    preferences = Preferences.userNodeForPackage(getClass());
+  }
+
   @Override
   public void start(Stage stage) throws Exception {
     Class<? extends EventEditor> adminClass = getClass();
@@ -28,6 +35,13 @@ public class EventEditor extends Application {
     scene.getStylesheets().add(adminClass.getResource("EventEditor.css").toExternalForm());
     stage.setScene(scene);
     stage.show();
+  }
+
+  /**
+   * @return the editor preferences
+   */
+  Preferences getPreferences() {
+    return preferences;
   }
 
   /**

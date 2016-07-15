@@ -1,11 +1,14 @@
 package io.hackergarten.eventeditor;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import java.util.prefs.Preferences;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +30,13 @@ public class EventEditorTest {
   }
 
   @Test
-  public void testStartStage(@Injectable Stage stage, @Injectable Parent root,
+  public void testGetPreferences() {
+    Preferences prefs = editor.getPreferences();
+    assertEquals("/io/hackergarten/eventeditor", prefs.absolutePath());
+  }
+
+  @Test
+  public void testStart(@Injectable Stage stage, @Injectable Parent root,
       @Injectable EventEditorController controller, @Mocked FXMLLoader loader, @Mocked Scene scene)
       throws Exception {
     final ObservableList<String> stylesheets = FXCollections.observableArrayList();
@@ -43,7 +52,21 @@ public class EventEditorTest {
       }
     };
     editor.start(stage);
-    
+
     assertEquals(1, stylesheets.size());
+  }
+
+  @Test
+  public void testMain(@Mocked Application application) {
+    String[] args = {"a", "b", "c"};
+
+    new Expectations() {
+      {
+        Application.launch(args);
+        times = 1;
+      }
+    };
+
+    EventEditor.main(args);
   }
 }

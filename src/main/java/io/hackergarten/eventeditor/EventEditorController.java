@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
@@ -31,7 +32,6 @@ import javafx.stage.FileChooser.ExtensionFilter;
  * @author Patrick Reinhart
  */
 public class EventEditorController implements Initializable {
-  private final Preferences preferences;
   private final EventList events;
 
   private EventEditor mainApp;
@@ -84,7 +84,6 @@ public class EventEditorController implements Initializable {
 
 
   public EventEditorController() {
-    preferences = Preferences.userNodeForPackage(EventEditor.class);
     events = new EventList();
   }
 
@@ -133,19 +132,20 @@ public class EventEditorController implements Initializable {
   }
 
   private void openFile(ActionEvent event) {
+    Preferences prefs = mainApp.getPreferences();
     ExtensionFilter filter = new ExtensionFilter("Hackergarten events", "events.json");
     FileChooser chooser = new FileChooser();
     chooser.setTitle("Choose json...");
     chooser.getExtensionFilters().add(filter);
     chooser.setSelectedExtensionFilter(filter);
     chooser.setInitialDirectory(
-        new File(preferences.get("lastOpenFileDirectory", System.getProperty("user.dir"))));
+        Paths.get(prefs.get("lastOpenFileDirectory", System.getProperty("user.dir"))).toFile());
     File eventFile = chooser.showOpenDialog(anchorPane.getScene().getWindow());
     if (eventFile != null) {
       try {
         Path eventFilePath = eventFile.toPath();
         events.load(eventFilePath);
-        preferences.put("lastOpenFileDirectory", eventFilePath.getParent().toString());
+        prefs.put("lastOpenFileDirectory", eventFilePath.getParent().toString());
       } catch (IOException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
