@@ -12,3 +12,10 @@ image:https://codecov.io/github/{project-full-path}/branch.svg?branch={github-br
 
 This project contains a simple JavaFX Editor to easy modify the `event.json` file for the
 https://github.com/hackergarten/hackergarten.github.io[hackergarten website] events file.
+
+
+== Contribute
+Contributions are always welcome. Use https://google.github.io/styleguide/javaguide.html[Google code style format] for your changes. 
+
+== License
+This project is licensed under the https://github.com/{project-full-path}/blob/{github-branch}/LICENSE[MIT license]
