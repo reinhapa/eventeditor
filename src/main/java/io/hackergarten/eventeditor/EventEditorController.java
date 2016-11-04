@@ -126,8 +126,8 @@ public class EventEditorController implements Initializable {
       eventLocation.textProperty().bindBidirectional(newValue.locationProperty());
       eventTitle.textProperty().bindBidirectional(newValue.titleProperty());
       eventVenue.textProperty().bindBidirectional(newValue.venueProperty());
-      linksTable.itemsProperty().bindBidirectional(oldValue.linksProperty());
-      achievementsTable.itemsProperty().bindBidirectional(oldValue.achievementsProperty());
+      linksTable.itemsProperty().bindBidirectional(newValue.linksProperty());
+      achievementsTable.itemsProperty().bindBidirectional(newValue.achievementsProperty());
     }
   }
 
