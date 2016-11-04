@@ -12,6 +12,7 @@ import io.hackergarten.eventeditor.model.Event;
 import io.hackergarten.eventeditor.model.EventList;
 import io.hackergarten.eventeditor.model.Link;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -133,22 +134,24 @@ public class EventEditorController implements Initializable {
 
   private void openFile(ActionEvent event) {
     Preferences prefs = mainApp.getPreferences();
-    ExtensionFilter filter = new ExtensionFilter("Hackergarten events", "events.json");
+    ExtensionFilter allFilter = new ExtensionFilter("All files", "*.*");
+    ExtensionFilter eventFilter = new ExtensionFilter("Hackergarten events", "events.json");
     FileChooser chooser = new FileChooser();
     chooser.setTitle("Choose json...");
-    chooser.getExtensionFilters().add(filter);
-    chooser.setSelectedExtensionFilter(filter);
+    ObservableList<ExtensionFilter> extensionFilters = chooser.getExtensionFilters();
+    extensionFilters.add(allFilter);
+    extensionFilters.add(eventFilter);
+    chooser.setSelectedExtensionFilter(eventFilter);
     chooser.setInitialDirectory(
         Paths.get(prefs.get("lastOpenFileDirectory", System.getProperty("user.dir"))).toFile());
     File eventFile = chooser.showOpenDialog(anchorPane.getScene().getWindow());
     if (eventFile != null) {
+      Path eventFilePath = eventFile.toPath();
       try {
-        Path eventFilePath = eventFile.toPath();
         events.load(eventFilePath);
         prefs.put("lastOpenFileDirectory", eventFilePath.getParent().toString());
       } catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+        ErrorDialog.showAndWait(e, "Event loading failed", "Unable to read " + eventFilePath);
       }
     }
   }
