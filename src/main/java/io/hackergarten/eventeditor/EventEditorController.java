@@ -82,7 +82,8 @@ public class EventEditorController implements Initializable {
   // menu entries
   @FXML
   private MenuItem openFile;
-
+  @FXML
+  private MenuItem closeEditor;
 
   public EventEditorController() {
     events = new EventList();
