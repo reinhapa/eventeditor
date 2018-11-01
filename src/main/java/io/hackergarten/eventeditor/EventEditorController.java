@@ -46,6 +46,8 @@ public class EventEditorController implements Initializable {
   @FXML
   private TableColumn<Event, String> eventTableTitleColumn;
   @FXML
+  private TableColumn<Event, String> eventTableAddressColumn;
+  @FXML
   private TableColumn<Event, String> eventTableLocationColumn;
   @FXML
   private TableColumn<Event, String> eventTableVenueColumn;
@@ -56,6 +58,8 @@ public class EventEditorController implements Initializable {
   // details of a single event
   @FXML
   private TextField eventTitle;
+  @FXML
+  private TextField eventAddress;
   @FXML
   private TextField eventVenue;
   @FXML
@@ -119,6 +123,7 @@ public class EventEditorController implements Initializable {
       eventLocation.textProperty().unbindBidirectional(oldValue.locationProperty());
       eventTitle.textProperty().unbindBidirectional(oldValue.titleProperty());
       eventVenue.textProperty().unbindBidirectional(oldValue.venueProperty());
+      eventAddress.textProperty().unbindBidirectional(oldValue.addressProperty());
       linksTable.itemsProperty().unbindBidirectional(oldValue.linksProperty());
       achievementsTable.itemsProperty().unbindBidirectional(oldValue.achievementsProperty());
     }
@@ -128,6 +133,7 @@ public class EventEditorController implements Initializable {
       eventLocation.textProperty().bindBidirectional(newValue.locationProperty());
       eventTitle.textProperty().bindBidirectional(newValue.titleProperty());
       eventVenue.textProperty().bindBidirectional(newValue.venueProperty());
+      eventAddress.textProperty().bindBidirectional(newValue.addressProperty());
       linksTable.itemsProperty().bindBidirectional(newValue.linksProperty());
       achievementsTable.itemsProperty().bindBidirectional(newValue.achievementsProperty());
     }

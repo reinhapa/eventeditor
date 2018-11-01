@@ -17,22 +17,38 @@ import javafx.collections.ObservableList;
  * @author Patrick Reinhart
  */
 public final class Event {
-  private final StringProperty title;
-  private final StringProperty venue;
+  @Deprecated
+  private final StringProperty title;  // old value: calculated: venue + ", " + address
+  private final StringProperty address;
+  @Deprecated
   private final StringProperty location;
+  private final StringProperty venue;
   private final StringProperty details;
   private final ObjectProperty<LocalDate> date;
   private final ObjectProperty<ObservableList<Link>> achievements;
   private final ObjectProperty<ObservableList<Link>> links;
 
   public Event() {
-    location = new SimpleStringProperty();
     title = new SimpleStringProperty();
+    address = new SimpleStringProperty();
+    location = new SimpleStringProperty();
     venue = new SimpleStringProperty();
     details = new SimpleStringProperty();
     date = new SimpleObjectProperty<>();
     achievements = new SimpleObjectProperty<>();
     links = new SimpleObjectProperty<>();
+  }
+
+  public StringProperty addressProperty() {
+    return address;
+  }
+
+  public String getAddress() {
+    return address.get();
+  }
+
+  public void setAddress(String address) {
+    this.address.set(address);
   }
 
   public StringProperty locationProperty() {

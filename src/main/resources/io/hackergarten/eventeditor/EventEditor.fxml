@@ -21,7 +21,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.hackergarten.eventeditor.EventEditorController">
    <center>
-      <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="800.0">
+      <AnchorPane fx:id="anchorPane" prefHeight="700.0" prefWidth="1200.0">
          <children>
             <SplitPane dividerPositions="0.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <items>
@@ -30,6 +30,7 @@
                         <TableView fx:id="eventTable" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columns>
                               <TableColumn fx:id="eventTableTitleColumn" prefWidth="75.0" text="Title" />
+                              <TableColumn fx:id="eventTableAddressColumn" prefWidth="75.0" text="Address" />
                               <TableColumn fx:id="eventTableLocationColumn" prefWidth="75.0" text="Location" />
                               <TableColumn fx:id="eventTableVenueColumn" prefWidth="75.0" text="Venue" />
                               <TableColumn fx:id="eventTableDateColumn" prefWidth="75.0" text="Date" />
@@ -53,19 +54,22 @@
                                           <RowConstraints vgrow="NEVER" />
                                           <RowConstraints vgrow="NEVER" />
                                           <RowConstraints vgrow="NEVER" />
+                                          <RowConstraints vgrow="NEVER" />
                                           <RowConstraints vgrow="ALWAYS" />
                                        </rowConstraints>
                                        <children>
                                           <Label text="Title" />
-                                          <Label text="Venue" GridPane.rowIndex="1" />
-                                          <Label text="Location" GridPane.rowIndex="2" />
-                                          <Label text="Date" GridPane.rowIndex="3" />
-                                          <Label text="Details" GridPane.rowIndex="4" />
+                                          <Label text="Address" GridPane.rowIndex="1" />
+                                          <Label text="Venue" GridPane.rowIndex="2" />
+                                          <Label text="Location" GridPane.rowIndex="3" />
+                                          <Label text="Date" GridPane.rowIndex="4" />
+                                          <Label text="Details" GridPane.rowIndex="5" />
                                           <TextField fx:id="eventTitle" GridPane.columnIndex="1" />
-                                          <TextField fx:id="eventVenue" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <TextField fx:id="eventLocation" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <DatePicker fx:id="eventDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                          <TextArea fx:id="eventDetails" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="4" />
+                                          <TextField fx:id="eventAddress" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField fx:id="eventVenue" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField fx:id="eventLocation" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <DatePicker fx:id="eventDate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <TextArea fx:id="eventDetails" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="5" />
                                        </children>
                                     </GridPane>
                                  </children>
