@@ -3,20 +3,17 @@ package io.hackergarten.eventeditor;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import javafx.application.Application;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import mockit.Expectations;
 import mockit.Injectable;
 import mockit.Mock;
 import mockit.MockUp;
 import mockit.Mocked;
-import mockit.StrictExpectations;
-import mockit.integration.junit4.JMockit;
 
-@RunWith(JMockit.class)
 public class ErrorDialogTest {
   @Mocked
   Alert alert;
@@ -37,7 +34,7 @@ public class ErrorDialogTest {
         assertEquals("The exception stacktrace was:", text);
       }
     };
-    new StrictExpectations() {
+    new Expectations() {
       {
         alert.setTitle("Exception Dialog");
         alert.setHeaderText("header");

@@ -6,7 +6,6 @@ import java.util.prefs.Preferences;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -18,9 +17,7 @@ import javafx.stage.Stage;
 import mockit.Expectations;
 import mockit.Injectable;
 import mockit.Mocked;
-import mockit.integration.junit4.JMockit;
 
-@RunWith(JMockit.class)
 public class EventEditorTest {
   private EventEditor editor;
 

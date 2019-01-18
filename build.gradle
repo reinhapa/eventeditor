@@ -13,6 +13,8 @@ buildscript {
 
 configurations {
     asciidoclet
+    jmockit
+    testCompile.extendsFrom jmockit
 }
 
 apply plugin: 'java'
@@ -45,15 +47,16 @@ asciidoctorj {
 }
 
 dependencies {
-    compile 'org.glassfish.jersey.core:jersey-client:2.23.1'
-    compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.23.1'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.6.1'
-    compile 'org.controlsfx:controlsfx:8.40.9'
+    compile 'org.glassfish.jersey.core:jersey-client:2.27'
+    compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.27'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.8'
+    compile 'org.controlsfx:controlsfx:8.40.14'
+
+    jmockit 'org.jmockit:jmockit:1.44'
 
     testCompile 'junit:junit:4.12'
-    testCompile 'org.jmockit:jmockit:1.26'
 
-    asciidoclet 'org.asciidoctor:asciidoclet:1.+'
+    asciidoclet 'org.asciidoctor:asciidoclet:1.5.6'
 }
 
 task sourcesJar(type: Jar) {
@@ -101,6 +104,12 @@ jacocoTestReport {
         xml.enabled = true
         html.enabled = true
     }
+}
+
+test {
+  jvmArgumentProviders.add (
+    { -> ["-javaagent:${configurations.jmockit.filter{ f -> f.getName().startsWith('jmockit')}.singleFile.absolutePath}"] } as CommandLineArgumentProvider
+  )
 }
 
 check.dependsOn jacocoTestReport
