@@ -1,14 +1,14 @@
 import java.text.SimpleDateFormat
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
-        classpath 'net.nemerosa:versioning:1.7.1'
-    }
+plugins {
+    id 'java'
+    id 'signing'
+    id 'application'
+    id 'jacoco'
+    id 'maven-publish'
+    id 'com.github.ben-manes.versions' version '0.20.0'
+    id 'net.nemerosa.versioning' version '2.8.2'
+    id 'org.owasp.dependencycheck' version '4.0.2'
 }
 
 configurations {
@@ -16,13 +16,6 @@ configurations {
     jmockit
     testCompile.extendsFrom jmockit
 }
-
-apply plugin: 'java'
-apply plugin: 'application'
-apply plugin: 'jacoco'
-apply plugin: 'signing'
-apply plugin: 'org.asciidoctor.convert'
-apply plugin: 'net.nemerosa.versioning'
 
 group = 'net.reini'
 version = '1.0-SNAPSHOT'
@@ -42,21 +35,15 @@ ext {
     buildTime = new SimpleDateFormat('HH:mm:ss.SSSZ').format(buildTimeAndDate)
 }
 
-asciidoctorj { 
-    version '1.5.5'
-}
-
 dependencies {
     compile 'org.glassfish.jersey.core:jersey-client:2.27'
     compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.27'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.8'
-    compile 'org.controlsfx:controlsfx:8.40.14'
+    compile 'org.controlsfx:controlsfx:9.0.0'
 
     jmockit 'org.jmockit:jmockit:1.44'
 
     testCompile 'junit:junit:4.12'
-
-    asciidoclet 'org.asciidoctor:asciidoclet:1.5.6'
 }
 
 task sourcesJar(type: Jar) {
@@ -112,14 +99,17 @@ test {
   )
 }
 
-check.dependsOn jacocoTestReport
-
-javadoc {
-    options.docletpath = configurations.asciidoclet.files.asType(List)
-    options.doclet = 'org.asciidoctor.Asciidoclet'
-    options.addStringOption "-base-dir", "${projectDir}"
-    options.addStringOption "-attribute",
-            "name=${project.name}," +
-            "version=${project.version}," +
-            "title-link=http://github.com/reinhapa/[${project.name} ${project.version}]"
+dependencyUpdates.resolutionStrategy {
+  componentSelection { rules ->
+    rules.all { ComponentSelection selection ->
+      boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm', 'preview'].any { qualifier ->
+        selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
+      }
+      if (rejected) {
+        selection.reject('Release candidate')
+      }
+    }
+  }
 }
+
+check.dependsOn jacocoTestReport, dependencyCheckUpdate
