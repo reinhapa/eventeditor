@@ -38,6 +38,7 @@ ext {
 dependencies {
     compile 'org.glassfish.jersey.core:jersey-client:2.27'
     compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.27'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.11.3'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.8'
     compile 'org.controlsfx:controlsfx:9.0.0'
 
@@ -112,4 +113,4 @@ dependencyUpdates.resolutionStrategy {
   }
 }
 
-check.dependsOn jacocoTestReport, dependencyCheckUpdate
+check.dependsOn jacocoTestReport, dependencyCheckUpdate, dependencyCheckAnalyze
