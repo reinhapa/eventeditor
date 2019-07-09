@@ -42,7 +42,7 @@ dependencies {
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.8'
     compile 'org.controlsfx:controlsfx:9.0.0'
 
-    jmockit 'org.jmockit:jmockit:1.44'
+    jmockit 'org.jmockit:jmockit:1.47'
 
     testCompile 'junit:junit:4.12'
 }
