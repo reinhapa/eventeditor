@@ -7,6 +7,7 @@ plugins {
     id 'jacoco'
     id 'maven-publish'
     id 'com.github.ben-manes.versions' version '0.21.0'
+    id 'com.google.osdetector' version '1.6.2'
     id 'net.nemerosa.versioning' version '2.8.2'
     id 'org.owasp.dependencycheck' version '5.1.1'
 }
@@ -22,8 +23,8 @@ version = '1.0-SNAPSHOT'
 
 description = "JavaFX editor for Hackergarten events event.json file"
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 12
+targetCompatibility = 12
 
 repositories {
     jcenter()
@@ -33,6 +34,7 @@ Date buildTimeAndDate = new Date()
 ext {
     buildDate = new SimpleDateFormat('yyyy-MM-dd').format(buildTimeAndDate)
     buildTime = new SimpleDateFormat('HH:mm:ss.SSSZ').format(buildTimeAndDate)
+    platform = osdetector.os == 'osx' ? 'mac' : osdetector.os == 'windows' ? 'win' : osdetector.os
 }
 
 dependencies {
@@ -41,6 +43,12 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.9.1'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.9'
     compile 'org.controlsfx:controlsfx:11.0.0'
+
+    // javaFX
+    compile "org.openjfx:javafx-base:12.+:$platform"
+    compile "org.openjfx:javafx-graphics:12.+:$platform"
+    compile "org.openjfx:javafx-fxml:12.+:$platform"
+    compile "org.openjfx:javafx-controls:12.+:$platform"
 
     jmockit 'org.jmockit:jmockit:1.47'
 
@@ -113,4 +121,4 @@ dependencyUpdates.resolutionStrategy {
   }
 }
 
-check.dependsOn jacocoTestReport, dependencyCheckUpdate, dependencyCheckAnalyze
+check.dependsOn jacocoTestReport //, dependencyCheckUpdate, dependencyCheckAnalyze
