@@ -50,7 +50,7 @@ dependencies {
     compile "org.openjfx:javafx-fxml:12.+:$platform"
     compile "org.openjfx:javafx-controls:12.+:$platform"
 
-    jmockit 'org.jmockit:jmockit:1.47'
+    jmockit 'org.jmockit:jmockit:1.48'
 
     testCompile 'junit:junit:4.12'
 }
