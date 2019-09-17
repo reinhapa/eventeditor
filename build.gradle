@@ -40,7 +40,7 @@ ext {
 dependencies {
     compile 'org.glassfish.jersey.core:jersey-client:2.29.1'
     compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.29.1'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.9.1'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.10.0.pr3'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.9'
     compile 'org.controlsfx:controlsfx:11.0.0'
 
