@@ -52,7 +52,7 @@ dependencies {
 
     jmockit 'org.jmockit:jmockit:1.49'
 
-    testCompile 'junit:junit:4.13'
+    testCompile 'junit:junit:4.13.1'
 }
 
 task sourcesJar(type: Jar) {
