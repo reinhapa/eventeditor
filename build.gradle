@@ -38,7 +38,7 @@ ext {
 }
 
 dependencies {
-    compile 'org.glassfish.jersey.core:jersey-client:3.0.1'
+    compile 'org.glassfish.jersey.core:jersey-client:3.0.2'
     compile 'org.glassfish.jersey.media:jersey-media-json-jackson:3.0.1'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.12.5'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.5'
