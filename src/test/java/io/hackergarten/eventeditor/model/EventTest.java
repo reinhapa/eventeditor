@@ -1,14 +1,9 @@
 package io.hackergarten.eventeditor.model;
 
-import static org.junit.Assert.*;
-
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -17,6 +12,10 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests the basic functionality of the {@link Event} implementation.
@@ -24,7 +23,7 @@ import javafx.collections.ObservableList;
 public class EventTest {
   private Event event;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     event = new Event();
   }
@@ -36,91 +35,91 @@ public class EventTest {
       mapper.registerModule(new JavaTimeModule());
       List<Event> events = mapper.readValue(in,
           mapper.getTypeFactory().constructCollectionType(List.class, Event.class));
-      assertEquals(2, events.size());
+      assertThat(events).hasSize(2);
     }
   }
 
   @Test
   public void testTitleProperties() {
     String expected = "the title value";
-    assertNull(event.getTitle());
+    assertThat(event.getTitle()).isNull();
     StringProperty property = event.titleProperty();
-    assertNotNull(property);
-    assertNull(property.get());
+    assertThat(property).isNotNull();
+    assertThat(property.get()).isNull();
     event.setTitle(expected);
-    assertEquals(expected, event.getTitle());
-    assertEquals(expected, property.get());
+    assertThat(event.getTitle()).isEqualTo(expected);
+    assertThat(property.get()).isEqualTo(expected);
   }
 
   @Test
   public void testVenueProperties() {
     String expected = "the venue value";
-    assertNull(event.getVenue());
+    assertThat(event.getVenue()).isNull();
     StringProperty property = event.venueProperty();
-    assertNotNull(property);
-    assertNull(property.get());
+    assertThat(property).isNotNull();
+    assertThat(property.get()).isNull();
     event.setVenue(expected);
-    assertEquals(expected, event.getVenue());
-    assertEquals(expected, property.get());
+    assertThat(event.getVenue()).isEqualTo(expected);
+    assertThat(property.get()).isEqualTo(expected);
   }
 
   @Test
   public void testLocationProperties() {
     String expected = "the location value";
-    assertNull(event.getLocation());
+    assertThat(event.getLocation()).isNull();
     StringProperty property = event.locationProperty();
-    assertNotNull(property);
-    assertNull(property.get());
+    assertThat(property).isNotNull();
+    assertThat(property.get()).isNull();
     event.setLocation(expected);
-    assertEquals(expected, event.getLocation());
-    assertEquals(expected, property.get());
+    assertThat(event.getLocation()).isEqualTo(expected);
+    assertThat(property.get()).isEqualTo(expected);
   }
 
   @Test
   public void testDetailsProperties() {
     String expected = "the details value";
-    assertNull(event.getDetails());
+    assertThat(event.getDetails()).isNull();
     StringProperty property = event.detailsProperty();
-    assertNotNull(property);
-    assertNull(property.get());
+    assertThat(property).isNotNull();
+    assertThat(property.get()).isNull();
     event.setDetails(expected);
-    assertEquals(expected, event.getDetails());
-    assertEquals(expected, property.get());
+    assertThat(event.getDetails()).isEqualTo(expected);
+    assertThat(property.get()).isEqualTo(expected);
   }
 
   @Test
   public void testDateProperties() {
     LocalDate expected = LocalDate.now();
-    assertNull(event.getDate());
+    assertThat(event.getDate()).isNull();
     ObjectProperty<LocalDate> property = event.dateProperty();
-    assertNotNull(property);
-    assertNull(property.get());
+    assertThat(property).isNotNull();
+    assertThat(property.get()).isNull();
     event.setDate(expected);
-    assertEquals(expected, event.getDate());
-    assertEquals(expected, property.get());
+    assertThat(event.getDate()).isEqualTo(expected);
+    assertThat(property.get()).isEqualTo(expected);
   }
 
   @Test
   public void testAchievementsProperties() {
     List<Link> expected = Collections.singletonList(new Link());
-    assertNull(event.getAchievements());
+    assertThat(event.getAchievements()).isNull();
     Property<ObservableList<Link>> property = event.achievementsProperty();
-    assertNotNull(property);
-    assertNull(property.getValue());
+    assertThat(property).isNotNull();
+    assertThat(property.getValue()).isNull();
     event.setAchievements(expected);
-    assertEquals(expected, event.getAchievements());
-    assertEquals(expected, property.getValue());
+    assertThat(event.getAchievements()).isEqualTo(expected);
+    assertThat(property.getValue()).isEqualTo(expected);
   }
 
   @Test
   public void testLinksProperties() {
     List<Link> expected = Collections.singletonList(new Link());
-    assertNull(event.getLinks());
+    assertThat(event.getLinks()).isNull();
     Property<ObservableList<Link>> property = event.linksProperty();
-    assertNotNull(property);
-    assertNull(property.getValue());
+    assertThat(property).isNotNull();
+    assertThat(property.getValue()).isNull();
     event.setLinks(expected);
-    assertEquals(expected, event.getLinks());
-    assertEquals(expected, property.getValue());
+    assertThat(event.getLinks()).isEqualTo(expected);
+    assertThat(property.getValue()).isEqualTo(expected);
   }
 }

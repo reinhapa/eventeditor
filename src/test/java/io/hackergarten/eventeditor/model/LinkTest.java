@@ -1,49 +1,46 @@
 package io.hackergarten.eventeditor.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
 import java.net.URL;
-
-import org.junit.Before;
-import org.junit.Test;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests the basic functionality of the {@link Link} implementation.
  */
-public class LinkTest {
+class LinkTest {
   private Link link;
 
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     link = new Link();
   }
 
   @Test
-  public void testTitleProperties() {
+  void testTitleProperties() {
     String expected = "the title value";
-    assertNull(link.getTitle());
+    assertThat(link.getTitle()).isNull();
     StringProperty property = link.titleProperty();
-    assertNotNull(property);
-    assertNull(property.get());
+    assertThat(property).isNotNull();
+    assertThat(property.get()).isNull();
     link.setTitle(expected);
-    assertEquals(expected, link.getTitle());
-    assertEquals(expected, property.get());
+    assertThat(link.getTitle()).isEqualTo(expected);
+    assertThat(property.get()).isEqualTo(expected);
   }
 
   @Test
-  public void testUrlProperties() throws Exception {
+  void testUrlProperties() throws Exception {
     URL expected = new URL("file:/somelocation");
-    assertNull(link.getUrl());
+    assertThat(link.getUrl()).isNull();
     ObjectProperty<URL> property = link.urlProperty();
-    assertNotNull(property);
-    assertNull(property.get());
+    assertThat(property).isNotNull();
+    assertThat(property.get()).isNull();
     link.setUrl(expected);
-    assertEquals(expected, link.getUrl());
-    assertEquals(expected, property.get());
+    assertThat(link.getUrl()).isEqualTo(expected);
+    assertThat(property.get()).isEqualTo(expected);
   }
 }

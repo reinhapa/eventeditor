@@ -1,11 +1,9 @@
 package io.hackergarten.eventeditor;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 import java.util.prefs.Preferences;
-
-import org.junit.Before;
-import org.junit.Test;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -14,56 +12,52 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import mockit.Expectations;
-import mockit.Injectable;
-import mockit.Mocked;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockedConstruction;
+import org.mockito.MockedStatic;
+import org.mockito.junit.jupiter.MockitoSettings;
 
-public class EventEditorTest {
-  private EventEditor editor;
+@MockitoSettings
+class EventEditorTest {
+    private EventEditor editor;
 
-  @Before
-  public void setUp() {
-    editor = new EventEditor();
-  }
+    @BeforeEach
+    void setUp() {
+        editor = new EventEditor();
+    }
 
-  @Test
-  public void testGetPreferences() {
-    Preferences prefs = editor.getPreferences();
-    assertEquals("/io/hackergarten/eventeditor", prefs.absolutePath());
-  }
+    @Test
+    void testGetPreferences() {
+        Preferences prefs = editor.getPreferences();
+        assertThat(prefs.absolutePath()).isEqualTo("/io/hackergarten/eventeditor");
+    }
 
-  @Test
-  public void testStart(@Injectable Stage stage, @Injectable Parent root,
-      @Injectable EventEditorController controller, @Mocked FXMLLoader loader, @Mocked Scene scene)
-      throws Exception {
-    final ObservableList<String> stylesheets = FXCollections.observableArrayList();
+    @Test
+    void testStart(@Mock Stage stage, @Mock Parent root,
+                          @Mock EventEditorController controller, @Mock Scene scene)
+            throws Exception {
+        final ObservableList<String> stylesheets = FXCollections.observableArrayList();
+        try (MockedConstruction<FXMLLoader> fxmlLoader = mockConstruction(FXMLLoader.class, (loader, context) -> {
+            when(loader.load()).thenReturn(root);
+            when(loader.getController()).thenReturn(controller);
+        })) {
+            when(scene.getStylesheets()).thenReturn(stylesheets);
 
-    new Expectations() {
-      {
-        loader.load();
-        result = root;
-        loader.getController();
-        result = controller;
-        scene.getStylesheets();
-        result = stylesheets;
-      }
-    };
-    editor.start(stage);
+            editor.start(stage);
 
-    assertEquals(1, stylesheets.size());
-  }
+            assertThat(stylesheets).hasSize(1);
+        }
+    }
 
-  @Test
-  public void testMain(@Mocked Application application) {
-    String[] args = {"a", "b", "c"};
+    @Test
+    void testMain() {
+        String[] args = {"a", "b", "c"};
+        try (MockedStatic<Application> application = mockStatic(Application.class)) {
+            EventEditor.main(args);
 
-    new Expectations() {
-      {
-        Application.launch(args);
-        times = 1;
-      }
-    };
-
-    EventEditor.main(args);
-  }
+            application.verify(() -> Application.launch(args));
+        }
+    }
 }

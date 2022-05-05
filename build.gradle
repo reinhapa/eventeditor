@@ -14,8 +14,6 @@ plugins {
 
 configurations {
     asciidoclet
-    jmockit
-    testCompile.extendsFrom jmockit
 }
 
 group = 'net.reini'
@@ -23,11 +21,12 @@ version = '1.0-SNAPSHOT'
 
 description = "JavaFX editor for Hackergarten events event.json file"
 
-sourceCompatibility = 12
-targetCompatibility = 12
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+}
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 Date buildTimeAndDate = new Date()
@@ -38,36 +37,25 @@ ext {
 }
 
 dependencies {
-    compile 'org.glassfish.jersey.core:jersey-client:3.0.4'
-    compile 'org.glassfish.jersey.media:jersey-media-json-jackson:3.0.4'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.13.2.2'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2'
-    compile 'org.controlsfx:controlsfx:11.1.1'
+    implementation 'org.glassfish.jersey.core:jersey-client:3.0.4'
+    implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:3.0.4'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.2.2'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2'
+    implementation 'org.controlsfx:controlsfx:11.1.1'
 
     // javaFX
-    compile "org.openjfx:javafx-base:12.+:$platform"
-    compile "org.openjfx:javafx-graphics:12.+:$platform"
-    compile "org.openjfx:javafx-fxml:12.+:$platform"
-    compile "org.openjfx:javafx-controls:12.+:$platform"
+    implementation "org.openjfx:javafx-base:18.+:$platform"
+    implementation "org.openjfx:javafx-graphics:18.+:$platform"
+    implementation "org.openjfx:javafx-fxml:18.+:$platform"
+    implementation "org.openjfx:javafx-controls:18.+:$platform"
 
-    jmockit 'org.jmockit:jmockit:1.49'
+    testImplementation 'org.assertj:assertj-core:3.22.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.5.1'
 
-    testCompile 'junit:junit:4.13.2'
-}
-
-task sourcesJar(type: Jar) {
-    classifier 'sources'
-    from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
+    testRuntimeOnly 'org.junit.platform:junit-platform-runner:1.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testRuntimeOnly 'org.mockito:mockito-inline:4.5.1'
 }
 
 signing {
@@ -103,9 +91,10 @@ jacocoTestReport {
 }
 
 test {
-  jvmArgumentProviders.add (
-    { -> ["-javaagent:${configurations.jmockit.filter{ f -> f.getName().startsWith('jmockit')}.singleFile.absolutePath}"] } as CommandLineArgumentProvider
-  )
+    useJUnitPlatform()
+    testLogging {
+        events 'skipped'
+    }
 }
 
 dependencyUpdates.resolutionStrategy {
