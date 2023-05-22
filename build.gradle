@@ -38,7 +38,7 @@ ext {
 
 dependencies {
     implementation 'org.glassfish.jersey.core:jersey-client:3.1.2'
-    implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:3.1.1'
+    implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:3.1.2'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.1'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.1'
     implementation 'org.controlsfx:controlsfx:11.1.2'
