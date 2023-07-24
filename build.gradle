@@ -50,7 +50,7 @@ dependencies {
     implementation "org.openjfx:javafx-controls:18.+:$platform"
 
     testImplementation 'org.assertj:assertj-core:3.24.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
     testImplementation 'org.mockito:mockito-junit-jupiter:5.4.0'
 
     testRuntimeOnly 'org.junit.platform:junit-platform-runner:1.9.3'
