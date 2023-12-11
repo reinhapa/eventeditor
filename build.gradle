@@ -9,7 +9,7 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.50.0'
     id 'com.google.osdetector' version '1.7.3'
     id 'net.nemerosa.versioning' version '3.0.0'
-    id 'org.owasp.dependencycheck' version '9.0.3'
+    id 'org.owasp.dependencycheck' version '9.0.4'
 }
 
 configurations {
