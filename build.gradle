@@ -40,7 +40,7 @@ dependencies {
     implementation 'org.glassfish.jersey.core:jersey-client:3.1.10'
     implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:3.1.10'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.19.1'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.19.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.19.1'
     implementation 'org.controlsfx:controlsfx:11.2.2'
 
     // javaFX
